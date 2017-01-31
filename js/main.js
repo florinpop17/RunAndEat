@@ -1,9 +1,9 @@
-var blob = [];
+var blobs = [];
 var foods = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    blob = new Blob();
+    blobs[0] = new Blob();
     
     for(var i=0; i<5; i++){
         foods.push(new Food());
@@ -13,9 +13,10 @@ function setup() {
 function draw() {
     background(0);
     
-    foods.forEach(food => {
-        food.show();
-    });
+    foods.forEach(food => { food.show(); };
     
-    blob.show();
+    blobs.forEach(blob => { blob.show(); };
+}
+
+function eatFood() {
 }
