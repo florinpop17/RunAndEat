@@ -4,7 +4,7 @@ var foods = [];
 var data = {};
 var socket;
 
-var name = "New Blob";
+var name;
 
 var startGame = false;
 
@@ -12,11 +12,11 @@ var submit = document.getElementById('submit');
 var intro = document.getElementById('intro');
 
 submit.addEventListener('click', function(){
-    var userName = document.getElementById('name').value;
-    if(userName){
+    name = document.getElementById('name').value;
+    if(name){
         startGame = true;
         intro.style.display = "none";
-        user.setName(userName);
+        user.setName(name);
     } else {
         alert("Please enter your name!");
     }
@@ -42,49 +42,40 @@ function setup() {
     socket.on('tick', function(data) {
         users = data;
     });
-    
-    noLoop();
 }
 
 function draw() {
-    background(0);
+        background(0);
+        eatFood();
 
-    eatFood();
+        foods.forEach(food => { food.show(); });
 
-    foods.forEach(food => { food.show(); });
+        for (var i = users.length - 1; i >= 0; i--) {
+            var id = users[i].id;
 
-    for (var i = users.length - 1; i >= 0; i--) {
-        var id = users[i].id;
+            if (id !== socket.id) {
+                console.log(users[i].col);
+                fill(users[i].col);
+                ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
 
-        if (id !== socket.id) {
-            console.log(users[i].col);
-            fill(users[i].col);
-            ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
-
-            fill(255);
-            textAlign(CENTER);
-            text(`${users[i].name}(${users[i].speed.toFixed(2)})`, users[i].x, users[i].y - users[i].r*1.5);
+                fill(255);
+                textAlign(CENTER);
+                text(`${users[i].name}(${users[i].speed.toFixed(2)})`, users[i].x, users[i].y - users[i].r*1.5);
+            }
         }
-    }
+        if(startGame)
+            user.show();
 
+        var data = {
+            x: user.x,
+            y: user.y,
+            r: user.r,
+            name : user.name,
+            speed: user.speed,
+            col: user.col
+        };
 
-
-//    console.log(users);
-
-
-
-    user.show();
-
-    var data = {
-        x: user.x,
-        y: user.y,
-        r: user.r,
-        name : user.name,
-        speed: user.speed,
-        col: user.col
-    };
-
-    socket.emit('update', data);
+        socket.emit('update', data);
 }
 
 function eatFood() {

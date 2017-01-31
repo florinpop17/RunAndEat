@@ -1,4 +1,4 @@
-function User(name = "New Blob") {
+function User(name) {
     this.x = random(0, width);
     this.y = random(0, height);
     this.r = width / 30;
