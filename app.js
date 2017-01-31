@@ -18,10 +18,10 @@ server.listen(PORT, function() {
     console.log('Server running on port',PORT);
 })
 
-//io.sockets.on('connection', function(socket){
-//    connections.push(socket);
-//    console.log('Connected: %s sockets connected.', connections.length);
-//    
+io.sockets.on('connection', function(socket){
+    connections.push(socket);
+    console.log('Connected: %s sockets connected.', connections.length);
+    
 //    //Disconnect
 //    socket.on('disconnect', function(data){
 //        users.splice(users.indexOf(socket.username), 1);
@@ -47,4 +47,4 @@ server.listen(PORT, function() {
 //    function updateUsernames(){
 //        io.sockets.emit('get users', users);
 //    }
-//});
+});
