@@ -15,6 +15,9 @@ function draw() {
     
     eatFood();
     
+    if(frameCount % 100 === 0)
+        foods.push(new Food());
+    
     foods.forEach(food => { food.show(); });
     blobs.forEach(blob => { blob.show(); });
 }
