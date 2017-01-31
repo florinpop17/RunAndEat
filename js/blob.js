@@ -2,13 +2,16 @@ function Blob() {
     this.pos = createVector(width/2, height/2);
     this.r = 30;
     this.speed = 5;
+    this.name = "Florin";
     
     this.show = function() {
-        fill(100, 0, 200);
         
         this.move();
         this.edges();
         
+        fill(255);
+        text(`${this.name}(${this.speed.toFixed(2)})`, this.pos.x - 25, this.pos.y - 40);
+        fill(100, 0, 200);
         ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
     }
     
@@ -43,5 +46,6 @@ function Blob() {
     
     this.eat = function(val) {
         this.speed += val / 10;
+        //this.speed = this.speed.toFixed(2);
     }
 }

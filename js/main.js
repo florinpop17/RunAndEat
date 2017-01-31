@@ -27,9 +27,7 @@ function eatFood() {
         foods = foods.filter(food =>{
             var d = dist(blob.pos.x, blob.pos.y, food.pos.x, food.pos.y);
             if(d < blob.r + food.r){
-                //Food eaten
-                console.log("HAM");
-                
+                //Food eaten                
                 blob.eat(food.val);
                 
                 return false;
