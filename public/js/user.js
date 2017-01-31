@@ -1,6 +1,6 @@
 function User(name = "New Blob") {
-    this.x = width/2;
-    this.y = height/2;
+    this.x = random(0, width);
+    this.y = random(0, height);
     this.r = width / 30;
     this.speed = 5;
     this.name = name;
