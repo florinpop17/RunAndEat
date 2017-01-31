@@ -41,7 +41,7 @@ function Blob() {
         }
     }
     
-    this.increaseSpeed(val) {
+    this.increaseSpeed = function(val) {
         this.speed += val;
     }
 }
