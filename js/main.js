@@ -1,7 +1,7 @@
 var blob;
 
 function setup() {
-    createCanvas(screen.width, screen.height);
+    createCanvas(window.innerWidth, window.innerHeight);
     blob = new Blob();
 }
 
