@@ -24,3 +24,21 @@ html, body {
     align-items: center;
     flex-direction: column;
 }
+
+#intro h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+#intro h3{
+    margin: 20px 0 10px;
+}
+
+#intro p {
+    font-size: 30px;
+}
+
+#intro strong {
+    font-size: 30px;
+    margin-top: 20px;
+}
