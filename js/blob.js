@@ -23,6 +23,6 @@ function Blob() {
 
         if (keyIsDown(DOWN_ARROW))
             this.pos.y+=this.speed;
-            
+        
     }
 }
