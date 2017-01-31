@@ -12,7 +12,8 @@ function setup() {
     
     var data = {
         x: user.x,
-        y: user.y
+        y: user.y,
+        r: user.r
     }
 
     socket.emit('start', data);
@@ -28,9 +29,19 @@ function draw() {
     eatFood();
     
     foods.forEach(food => { food.show(); });
-    users.forEach(user => { user.show(); });
     
-    console.log(users);
+    for (var i = users.length - 1; i >= 0; i--) {
+        var id = users[i].id;
+        if (id.substring(2, id.length) !== socket.id) {
+        
+            fill(0, 0, 255);
+            ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
+        }
+    }
+    
+    
+    
+//    console.log(users);
     
     
 
@@ -38,7 +49,8 @@ function draw() {
     
     var data = {
         x: user.x,
-        y: user.y
+        y: user.y,
+        r: user.r
     };
     
     socket.emit('update', data);

@@ -22,14 +22,15 @@ server.listen(PORT, function() {
 });
 
 
-function User(id, x, y) {
+function User(id, x, y, r) {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.r = r;
 }
 
 
-setInterval(sendUsers, 1000);
+setInterval(sendUsers, 33);
 
 function sendUsers(){
     io.sockets.emit('tick', users);
@@ -41,7 +42,7 @@ io.sockets.on('connection', function(socket){
     console.log('Connected: %s sockets connected.', connections.length);
     
     socket.on('start', function(data){
-        var user = new User(socket.id, data.x, data.y);
+        var user = new User(socket.id, data.x, data.y, data.r);
         users.push(user);
     });
     
@@ -55,11 +56,13 @@ io.sockets.on('connection', function(socket){
         
         newUser.x = data.x;
         newUser.y = data.y;
+        newUser.r = newUser.r;
     });
     
     //Disconnect
     socket.on('disconnect', function(data){
         connections.splice(connections.indexOf(socket), 1);
+        users = users.filter(user => user.id !== socket.id);
         console.log('Disconnected: %s sockets connected.', connections.length);
     });
 });
