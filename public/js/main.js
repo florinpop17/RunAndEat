@@ -8,6 +8,18 @@ var name = "New Blob";
 
 var startGame = false;
 
+var submit = document.getElementById('submit');
+var name = document.getElementById('name');
+
+submit.addEventListener('click', function(){
+    var userName = name.value;
+    if(userName){
+        startGame = true;   
+    } else {
+        alert("Please enter your name!");
+    }
+});
+
 
 setTimeout(function(){loop(); console.log('started')}, 2000);
 
