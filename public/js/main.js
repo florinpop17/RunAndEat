@@ -1,20 +1,25 @@
-var blobs = [];
+var users = [];
 var foods = [];
 var data = {};
-var socket;
+var socket = io.connect('http://localhost:3000');
+socket.emit('start', {users: users});
 
 function setup() {
-    socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
-    blobs[0] = new Blob();
+    users[0] = new User();
     
     for(var i=0; i<5; i++){
         foods.push(new Food());
     }
     
-    data = {blobs, foods};
+    data = {users: users, foods: foods};
     
-    socket.emit('start', data);
+    
+    //Works
+//    socket.emit('start', {hi: users[0]});
+    
+    //doesn't work
+    //socket.emit('start', data);
 }
 
 function draw() {
@@ -26,16 +31,16 @@ function draw() {
         foods.push(new Food());
     
     foods.forEach(food => { food.show(); });
-    blobs.forEach(blob => { blob.show(); });
+    users.forEach(user => { user.show(); });
 }
 
 function eatFood() {
-    blobs.forEach(blob =>{
+    users.forEach(user =>{
         foods = foods.filter(food =>{
-            var d = dist(blob.pos.x, blob.pos.y, food.pos.x, food.pos.y);
-            if(d < blob.r + food.r){
+            var d = dist(user.pos.x, user.pos.y, food.pos.x, food.pos.y);
+            if(d < user.r + food.r){
                 //Food eaten                
-                blob.eat(food.val);
+                user.eat(food.val);
                 
                 return false;
             }

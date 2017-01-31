@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
+var bodyParser = require('body-parser');
 const io = require('socket.io').listen(server);
 const PORT = process.env.PORT || 3000;
 
-let blobs = [];
+let users = [];
 let foods = [];
 let connections = [];
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/', function(req, res){
     res.send('index.html');
@@ -29,10 +32,8 @@ io.sockets.on('connection', function(socket){
     });
     
     socket.on('start', function(data){
-        blobs = data.blobs;
-        foods = data.foods;
         console.log(data);
-    });
+    })
 //    
 //    //Send message
 //    socket.on('send message', function(data){
