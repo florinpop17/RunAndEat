@@ -50,4 +50,8 @@ function User(name = "New Blob") {
     this.eat = function(val) {
         this.speed += val / 10;
     }
+    
+    this.setName = function(newName){
+        this.name = newName;
+    }
 }

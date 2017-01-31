@@ -9,19 +9,18 @@ var name = "New Blob";
 var startGame = false;
 
 var submit = document.getElementById('submit');
-var name = document.getElementById('name');
+var intro = document.getElementById('intro');
 
 submit.addEventListener('click', function(){
-    var userName = name.value;
+    var userName = document.getElementById('name').value;
     if(userName){
-        startGame = true;   
+        startGame = true;
+        intro.style.display = "none";
+        user.setName(userName);
     } else {
         alert("Please enter your name!");
     }
 });
-
-
-setTimeout(function(){loop(); console.log('started')}, 2000);
 
 function setup() {
     createCanvas(800, 800);
