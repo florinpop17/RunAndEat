@@ -1,14 +1,20 @@
 var blobs = [];
 var foods = [];
+var data = {};
+var socket;
 
 function setup() {
-    var socket = io.connect();
+    socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
     blobs[0] = new Blob();
     
     for(var i=0; i<5; i++){
         foods.push(new Food());
     }
+    
+    data = {blobs, foods};
+    
+    socket.emit('start', data);
 }
 
 function draw() {

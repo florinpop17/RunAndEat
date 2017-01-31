@@ -8,7 +8,7 @@ let blobs = [];
 let foods = [];
 let connections = [];
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
     res.send('index.html');
@@ -26,6 +26,12 @@ io.sockets.on('connection', function(socket){
     socket.on('disconnect', function(data){
         connections.splice(connections.indexOf(socket), 1);
         console.log('Disconnected: %s sockets connected.', connections.length);
+    });
+    
+    socket.on('start', function(data){
+        blobs = data.blobs;
+        foods = data.foods;
+        console.log(data);
     });
 //    
 //    //Send message
