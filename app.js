@@ -22,6 +22,12 @@ server.listen(PORT, function() {
     console.log('Server running on port',PORT);
 });
 
+function Food(x, y, r, val){
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.val = val;
+}
 
 function User(id, x, y, r, name, speed, col) {
     this.id = id;
@@ -34,10 +40,15 @@ function User(id, x, y, r, name, speed, col) {
 }
 
 
-setInterval(sendUsers, 10);
+setInterval(draw, 10);
+setInterval(addFood, 800);
 
-function sendUsers(){
-    io.sockets.emit('tick', users);
+function addFood(){
+    foods.push(new Food(Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
+}
+
+function draw(){
+    io.sockets.emit('tick', {users, foods});
 //    console.log(users);
 }
 
@@ -64,6 +75,10 @@ io.sockets.on('connection', function(socket){
         newUser.name = data.name;
         newUser.speed = data.speed;
         newUser.col = data.col;
+    });
+    
+    socket.on('eaten', function(data){
+        foods = data; 
     });
     
     //Disconnect

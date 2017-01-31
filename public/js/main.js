@@ -3,6 +3,7 @@ var users = [];
 var foods = [];
 var data = {};
 var socket;
+var foodColors = ['#ecf0f1', '#3498db', '#2ecc71', '#ff2020'];
 
 var name;
 
@@ -40,7 +41,8 @@ function setup() {
     socket.emit('start', data);
 
     socket.on('tick', function(data) {
-        users = data;
+        users = data.users;
+        foods = data.foods;
     });
 }
 
@@ -48,7 +50,11 @@ function draw() {
         background(0);
         eatFood();
 
-        foods.forEach(food => { food.show(); });
+        foods.forEach(food => {
+            console.log('color', foodColors[food.val]);
+            fill(255)
+            ellipse(food.x, food.y, food.r * 2, food.r * 2);
+        });
 
         for (var i = users.length - 1; i >= 0; i--) {
             var id = users[i].id;
@@ -65,7 +71,7 @@ function draw() {
         }
         user.show();
 
-        var data = {
+        var upUser = {
             x: user.x,
             y: user.y,
             r: user.r,
@@ -78,16 +84,17 @@ function draw() {
 }
 
 function eatFood() {
-    users.forEach(user =>{
-        foods = foods.filter(food =>{
-            var d = dist(user.x, user.y, food.x, food.y);
-            if(d < user.r + food.r){
-                //Food eaten                
-                user.eat(food.val);
-
-                return false;
-            }
-            return true;
-        })
-    })
+    foods = foods.filter(food =>{
+        var d = dist(user.x, user.y, food.x, food.y);
+        if(d < user.r + food.r){
+            
+            //Food eaten                
+            user.speed += food.val / 10;
+            
+            return false;
+        }
+        return true;
+    });
+    
+    socket.emit('eaten', foods);
 }
