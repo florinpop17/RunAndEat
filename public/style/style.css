@@ -60,11 +60,17 @@ html, body {
 
 #intro a {
     background-color: #e74c3c;
-    border: none;
     color: white;
+    border: 2px solid #e74c3c;
     font-size: 20px;
     padding: 10px;
     width: 300px;
     text-align: center;
     text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+#intro a:hover{
+    background-color: white;
+    color: #e74c3c;
 }
