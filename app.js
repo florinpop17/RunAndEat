@@ -21,56 +21,45 @@ server.listen(PORT, function() {
     console.log('Server running on port',PORT);
 });
 
-setInterval(sendUsers, 3000);
+
+function User(id, x, y) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+}
+
+
+setInterval(sendUsers, 1000);
 
 function sendUsers(){
-    io.sockets.emit('send users', users);
+    io.sockets.emit('tick', users);
 //    console.log(users);
 }
 
 io.sockets.on('connection', function(socket){
     connections.push(socket);
-    socket.send(socket.id);
     console.log('Connected: %s sockets connected.', connections.length);
+    
+    socket.on('start', function(data){
+        var user = new User(socket.id, data.x, data.y);
+        users.push(user);
+    });
+    
+    socket.on('update', function(data){
+        var newUser = {};
+        users.forEach(user => {
+            if(user.id === socket.id){
+                newUser = user;
+            }
+        });
+        
+        newUser.x = data.x;
+        newUser.y = data.y;
+    });
     
     //Disconnect
     socket.on('disconnect', function(data){
         connections.splice(connections.indexOf(socket), 1);
-        users = users.filter(user => user.id !== socket.id);
         console.log('Disconnected: %s sockets connected.', connections.length);
     });
-    
-    socket.on('start', function(user){
-        console.log("Server start");
-        console.log(user);
-        user.id = socket.id;
-        users.push(user);
-    });
-    
-    socket.on('update', function(user){
-        let currentUser = users.find(function(user) {
-            return user.id === socket.id;
-        });
-        console.log(currentUser.id, user.id)
-        currentUser = user;
-    })
-    
-//    
-//    //Send message
-//    socket.on('send message', function(data){
-//        console.log(data);
-//        io.sockets.emit('new message', {msg: data, user:socket.username}); 
-//    });
-//    
-//    //New user
-//    socket.on('new user', function(data, callback){
-//        callback(true);
-//        socket.username = data;
-//        users.push(socket.username);
-//        updateUsernames();
-//    })
-//    
-//    function updateUsernames(){
-//        io.sockets.emit('get users', users);
-//    }
 });

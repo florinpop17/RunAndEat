@@ -1,10 +1,9 @@
-function User(id) {
+function User() {
     this.x = width/2;
     this.y = height/2;
     this.r = width / 30;
     this.speed = 5;
     this.name = "Florin";
-    this.id = id;
     
     this.show = function() {
         
