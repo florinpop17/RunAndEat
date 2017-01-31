@@ -1,31 +1,35 @@
+var user;
 var users = [];
 var foods = [];
 var data = {};
 var socket;
 
 function setup() {
+    frameRate(1);
+    
     socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
-    users[0] = new User();
-    
-    for(var i=0; i<5; i++){
-        foods.push(new Food());
-    }
+    user = new User();
+    users.push(user);
     
     //doesn't work
-    socket.emit('start', users);
+    socket.emit('start', user);
+    
+//    socket.on('send users', function(allUsers){
+//        users = allUsers;
+//    });
 }
 
 function draw() {
     background(0);
+    console.log(users);
     
     eatFood();
     
-    if(frameCount % 100 === 0)
-        foods.push(new Food());
-    
     foods.forEach(food => { food.show(); });
     users.forEach(user => { user.show(); });
+
+//    socket.emit('update', user);
 }
 
 function eatFood() {

@@ -19,7 +19,14 @@ app.get('/', function(req, res){
 
 server.listen(PORT, function() {
     console.log('Server running on port',PORT);
-})
+});
+
+setInterval(sendUsers, 3000);
+
+function sendUsers(){
+    io.sockets.emit('send users', users);
+    console.log(users);
+}
 
 io.sockets.on('connection', function(socket){
     connections.push(socket);
@@ -28,12 +35,23 @@ io.sockets.on('connection', function(socket){
     //Disconnect
     socket.on('disconnect', function(data){
         connections.splice(connections.indexOf(socket), 1);
+        users = users.filter(user => user.id !== socket.id);
         console.log('Disconnected: %s sockets connected.', connections.length);
     });
     
-    socket.on('start', function(data){
-        console.log(data);
+    socket.on('start', function(user){
+        user.id = socket.id;
+        users.push(user);
+    });
+    
+    socket.on('update', function(user){
+        let currentUser = users.find(function(user) {
+            return user.id === socket.id;
+        });
+        console.log(currentUser.id, user.id)
+        currentUser = user;
     })
+    
 //    
 //    //Send message
 //    socket.on('send message', function(data){

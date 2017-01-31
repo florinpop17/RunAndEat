@@ -4,6 +4,7 @@ function User() {
     this.r = width / 30;
     this.speed = 5;
     this.name = "Florin";
+    this.id;
     
     this.show = function() {
         
