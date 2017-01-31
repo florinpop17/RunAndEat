@@ -1,4 +1,4 @@
-var colors = ['white', 'yellow', 'orange', 'red'];
+var colors = ['#ecf0f1', '#3498db', '#2ecc71', '#ff2020'];
 
 function Food() {
     this.pos = createVector(random(width), random(height));
