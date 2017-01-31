@@ -4,7 +4,7 @@ function User(name = "New Blob") {
     this.r = width / 30;
     this.speed = 5;
     this.name = name;
-    this.col = color(random(255), random(255), random(255));
+    this.col = [random(255), random(255), random(255)];
     
     this.show = function() {
         

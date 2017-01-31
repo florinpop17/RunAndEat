@@ -44,8 +44,8 @@ function draw() {
         var id = users[i].id;
         
         if (id !== socket.id) {
-        
-//            fill(users[i].col);
+            console.log(users[i].col);
+            fill(users[i].col);
             ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
             
             fill(255);
