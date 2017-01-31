@@ -42,6 +42,6 @@ function Blob() {
     }
     
     this.eat = function(val) {
-        this.speed += val;
+        this.speed += val / 10;
     }
 }
