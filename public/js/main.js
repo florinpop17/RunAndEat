@@ -1,10 +1,10 @@
 var users = [];
 var foods = [];
 var data = {};
-var socket = io.connect('http://localhost:3000');
-socket.emit('start', {users: users});
+var socket;
 
 function setup() {
+    socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
     users[0] = new User();
     
@@ -12,14 +12,8 @@ function setup() {
         foods.push(new Food());
     }
     
-    data = {users: users, foods: foods};
-    
-    
-    //Works
-//    socket.emit('start', {hi: users[0]});
-    
     //doesn't work
-    //socket.emit('start', data);
+    socket.emit('start', users);
 }
 
 function draw() {
@@ -37,7 +31,7 @@ function draw() {
 function eatFood() {
     users.forEach(user =>{
         foods = foods.filter(food =>{
-            var d = dist(user.pos.x, user.pos.y, food.pos.x, food.pos.y);
+            var d = dist(user.x, user.y, food.x, food.y);
             if(d < user.r + food.r){
                 //Food eaten                
                 user.eat(food.val);
