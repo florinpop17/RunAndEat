@@ -4,18 +4,26 @@ var foods = [];
 var data = {};
 var socket;
 
+var name = "Florin";
+
+//function preload() {
+//    name = 'Florin';
+////    col = color(random(255), random(255), random(255));
+//}
+
 function setup() {
     socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
     
-    user = new User();
+    user = new User(name);
     
     var data = {
         x: user.x,
         y: user.y,
         r: user.r,
-        name : user.name,
-        speed : user.speed
+        name: user.name,
+        speed: user.speed,
+        col: user.col
     }
 
     socket.emit('start', data);
@@ -34,10 +42,10 @@ function draw() {
     
     for (var i = users.length - 1; i >= 0; i--) {
         var id = users[i].id;
-        console.log(id, socket.id);
+        
         if (id !== socket.id) {
         
-            fill(0, 0, 255);
+//            fill(users[i].col);
             ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
             
             fill(255);
@@ -59,7 +67,8 @@ function draw() {
         y: user.y,
         r: user.r,
         name : user.name,
-        speed: user.speed
+        speed: user.speed,
+        col: user.col
     };
     
     socket.emit('update', data);

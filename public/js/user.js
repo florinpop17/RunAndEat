@@ -1,9 +1,10 @@
-function User(name) {
+function User(name = "New Blob") {
     this.x = width/2;
     this.y = height/2;
     this.r = width / 30;
     this.speed = 5;
     this.name = name;
+    this.col = color(random(255), random(255), random(255));
     
     this.show = function() {
         
@@ -13,7 +14,7 @@ function User(name) {
         fill(255);
         textAlign(CENTER);
         text(`${this.name}(${this.speed.toFixed(2)})`, this.x, this.y - this.r*1.5);
-        fill(100, 0, 200);
+        fill(this.col);
         ellipse(this.x, this.y, this.r*2, this.r*2);
     }
     

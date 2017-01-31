@@ -22,13 +22,14 @@ server.listen(PORT, function() {
 });
 
 
-function User(id, x, y, r, name, speed) {
+function User(id, x, y, r, name, speed, col) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.r = r;
     this.name = name;
     this.speed = speed;
+    this.col = col;
 }
 
 
@@ -44,7 +45,7 @@ io.sockets.on('connection', function(socket){
     console.log('Connected: %s sockets connected.', connections.length);
     
     socket.on('start', function(data){
-        var user = new User(socket.id, data.x, data.y, data.r);
+        var user = new User(socket.id, data.x, data.y, data.r, data.name, data.speed, data.col);
         users.push(user);
     });
     
@@ -61,6 +62,7 @@ io.sockets.on('connection', function(socket){
         newUser.r = data.r;
         newUser.name = data.name;
         newUser.speed = data.speed;
+        newUser.col = data.col;
     });
     
     //Disconnect
