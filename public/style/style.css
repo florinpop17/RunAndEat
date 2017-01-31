@@ -2,6 +2,7 @@
 *, *:before, *:after {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -16,7 +17,7 @@ html, body {
     top: 0;
     left: 0;
     
-    background-color: #e74c3c;
+    background-color: #2980b9;
     color: white;
     font-family: Palanquin, sans-serif;
     display: flex;
@@ -26,8 +27,12 @@ html, body {
 }
 
 #intro h1 {
-    font-size: 60px;
+    font-size: 40px;
+}
+
+#intro small{
     margin-bottom: 30px;
+    font-size: 16px;
 }
 
 #intro h3{
@@ -35,7 +40,7 @@ html, body {
 }
 
 #intro p {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 100;
     margin-top: 10px;
 }
@@ -45,19 +50,21 @@ html, body {
     margin-right: 30px;
 }
 
-#intro h3 {
-    font-size: 30px;
-    margin-top: 50px;
-}
-
 #intro input{
     border: 0;
-    font-size: 24px;
+    font-size: 20px;
     padding: 10px;
+    margin-top: 50px;
     width: 300px;
 }
 
-#intro button {
-    border: 5px solid white;
+#intro a {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
     width: 300px;
+    text-align: center;
+    text-decoration: none;
 }
