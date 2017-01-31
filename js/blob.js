@@ -40,4 +40,8 @@ function Blob() {
             this.pos.y = height + this.r;
         }
     }
+    
+    this.increaseSpeed(val) {
+        this.speed += val;
+    }
 }
