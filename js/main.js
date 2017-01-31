@@ -13,10 +13,18 @@ function setup() {
 function draw() {
     background(0);
     
-    foods.forEach(food => { food.show(); });
+    eatFood();
     
+    foods.forEach(food => { food.show(); });
     blobs.forEach(blob => { blob.show(); });
 }
 
 function eatFood() {
+    blobs.forEach(blob =>{
+        foods.forEach(foods =>{
+            var d = dist(blob.pos.x, blob.pos.y, foods.pos.x, foods.pos.y);
+            if(d < blob.r + foods.r)
+                console.log("eat")
+        })
+    })
 }
