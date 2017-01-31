@@ -4,19 +4,19 @@ var foods = [];
 var data = {};
 var socket;
 
-var name = "Florin";
+var name = "New Blob";
 
-//function preload() {
-//    name = 'Florin';
-////    col = color(random(255), random(255), random(255));
-//}
+var startGame = false;
+
+
+setTimeout(function(){loop(); console.log('started')}, 2000);
 
 function setup() {
+    createCanvas(800, 800);
     socket = io.connect('http://localhost:3000');
-    createCanvas(windowWidth, windowHeight);
-    
+
     user = new User(name);
-    
+
     var data = {
         x: user.x,
         y: user.y,
@@ -27,41 +27,43 @@ function setup() {
     }
 
     socket.emit('start', data);
-    
+
     socket.on('tick', function(data) {
         users = data;
     });
+    
+    noLoop();
 }
 
 function draw() {
     background(0);
-    
+
     eatFood();
-    
+
     foods.forEach(food => { food.show(); });
-    
+
     for (var i = users.length - 1; i >= 0; i--) {
         var id = users[i].id;
-        
+
         if (id !== socket.id) {
             console.log(users[i].col);
             fill(users[i].col);
             ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
-            
+
             fill(255);
             textAlign(CENTER);
             text(`${users[i].name}(${users[i].speed.toFixed(2)})`, users[i].x, users[i].y - users[i].r*1.5);
         }
     }
-    
-    
-    
+
+
+
 //    console.log(users);
-    
-    
+
+
 
     user.show();
-    
+
     var data = {
         x: user.x,
         y: user.y,
@@ -70,7 +72,7 @@ function draw() {
         speed: user.speed,
         col: user.col
     };
-    
+
     socket.emit('update', data);
 }
 
@@ -81,7 +83,7 @@ function eatFood() {
             if(d < user.r + food.r){
                 //Food eaten                
                 user.eat(food.val);
-                
+
                 return false;
             }
             return true;
