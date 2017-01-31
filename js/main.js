@@ -13,9 +13,9 @@ function setup() {
 function draw() {
     background(0);
     
-    foods.forEach(food => { food.show(); };
+    foods.forEach(food => { food.show(); });
     
-    blobs.forEach(blob => { blob.show(); };
+    blobs.forEach(blob => { blob.show(); });
 }
 
 function eatFood() {
