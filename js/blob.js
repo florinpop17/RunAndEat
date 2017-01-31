@@ -10,7 +10,8 @@ function Blob() {
         this.edges();
         
         fill(255);
-        text(`${this.name}(${this.speed.toFixed(2)})`, this.pos.x - 25, this.pos.y - 40);
+        textAlign(CENTER);
+        text(`${this.name}(${this.speed.toFixed(2)})`, this.pos.x, this.pos.y - this.r*1.5);
         fill(100, 0, 200);
         ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
     }
