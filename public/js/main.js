@@ -9,22 +9,22 @@ function setup() {
     socket = io.connect('http://localhost:3000');
     createCanvas(windowWidth, windowHeight);
     user = new User(socket.id);
+    console.log(socket.id, socket);
     users.push(user);
     
-    console.log('Client start');
-    console.log(user);
     socket.emit('start', user);
     
     socket.on('send users', function(allUsers){
 //        users[0] = allUsers;
         console.log(users[0].id, allUsers[0].id);
     });
+    
+    console.log("end setup");
 }
 
 function draw() {
     background(0);
 //    console.log(users);
-    
     eatFood();
     
     foods.forEach(food => { food.show(); });

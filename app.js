@@ -30,6 +30,7 @@ function sendUsers(){
 
 io.sockets.on('connection', function(socket){
     connections.push(socket);
+    socket.send(socket.id);
     console.log('Connected: %s sockets connected.', connections.length);
     
     //Disconnect
