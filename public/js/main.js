@@ -63,8 +63,7 @@ function draw() {
                 text(`${users[i].name}(${users[i].speed.toFixed(2)})`, users[i].x, users[i].y - users[i].r*1.5);
             }
         }
-        if(startGame)
-            user.show();
+        user.show();
 
         var data = {
             x: user.x,
