@@ -22,11 +22,13 @@ server.listen(PORT, function() {
 });
 
 
-function User(id, x, y, r) {
+function User(id, x, y, r, name, speed) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.r = r;
+    this.name = name;
+    this.speed = speed;
 }
 
 
@@ -56,7 +58,9 @@ io.sockets.on('connection', function(socket){
         
         newUser.x = data.x;
         newUser.y = data.y;
-        newUser.r = newUser.r;
+        newUser.r = data.r;
+        newUser.name = data.name;
+        newUser.speed = data.speed;
     });
     
     //Disconnect

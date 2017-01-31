@@ -13,7 +13,9 @@ function setup() {
     var data = {
         x: user.x,
         y: user.y,
-        r: user.r
+        r: user.r,
+        name : user.name,
+        speed : user.speed
     }
 
     socket.emit('start', data);
@@ -32,10 +34,15 @@ function draw() {
     
     for (var i = users.length - 1; i >= 0; i--) {
         var id = users[i].id;
-        if (id.substring(2, id.length) !== socket.id) {
+        console.log(id, socket.id);
+        if (id !== socket.id) {
         
             fill(0, 0, 255);
             ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
+            
+            fill(255);
+            textAlign(CENTER);
+            text(`${users[i].name}(${users[i].speed.toFixed(2)})`, users[i].x, users[i].y - users[i].r*1.5);
         }
     }
     
@@ -50,7 +57,9 @@ function draw() {
     var data = {
         x: user.x,
         y: user.y,
-        r: user.r
+        r: user.r,
+        name : user.name,
+        speed: user.speed
     };
     
     socket.emit('update', data);

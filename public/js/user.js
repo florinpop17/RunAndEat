@@ -1,9 +1,9 @@
-function User() {
+function User(name) {
     this.x = width/2;
     this.y = height/2;
     this.r = width / 30;
     this.speed = 5;
-    this.name = "Florin";
+    this.name = name;
     
     this.show = function() {
         
