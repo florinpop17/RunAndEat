@@ -24,7 +24,7 @@ submit.addEventListener('click', function(){
 
 function setup() {
     createCanvas(800, 800);
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect();
 
     user = new User(name);
 
