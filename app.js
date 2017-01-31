@@ -34,7 +34,7 @@ function User(id, x, y, r, name, speed, col) {
 }
 
 
-setInterval(sendUsers, 33);
+setInterval(sendUsers, 10);
 
 function sendUsers(){
     io.sockets.emit('tick', users);
