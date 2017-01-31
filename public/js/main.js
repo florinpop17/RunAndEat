@@ -2,6 +2,7 @@ var blobs = [];
 var foods = [];
 
 function setup() {
+    var socket = io.connect();
     createCanvas(windowWidth, windowHeight);
     blobs[0] = new Blob();
     
