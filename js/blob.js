@@ -1,7 +1,7 @@
 function Blob() {
     this.pos = createVector(width/2, height/2);
     this.r = 30;
-    this.speed = 2;
+    this.speed = 20;
     
     this.show = function() {
         fill(100, 0, 200);
