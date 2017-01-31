@@ -46,5 +46,18 @@ html, body {
 }
 
 #intro h3 {
-    
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+#intro input{
+    border: 0;
+    font-size: 24px;
+    padding: 10px;
+    width: 300px;
+}
+
+#intro button {
+    border: 5px solid white;
+    width: 300px;
 }
