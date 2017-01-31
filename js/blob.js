@@ -1,6 +1,6 @@
 function Blob() {
     this.pos = createVector(width/2, height/2);
-    this.r = 30;
+    this.r = width / 30;
     this.speed = 5;
     this.name = "Florin";
     
