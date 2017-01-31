@@ -25,7 +25,7 @@ setInterval(sendUsers, 3000);
 
 function sendUsers(){
     io.sockets.emit('send users', users);
-    console.log(users);
+//    console.log(users);
 }
 
 io.sockets.on('connection', function(socket){
@@ -40,6 +40,8 @@ io.sockets.on('connection', function(socket){
     });
     
     socket.on('start', function(user){
+        console.log("Server start");
+        console.log(user);
         user.id = socket.id;
         users.push(user);
     });
