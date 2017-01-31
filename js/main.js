@@ -21,10 +21,17 @@ function draw() {
 
 function eatFood() {
     blobs.forEach(blob =>{
-        foods.forEach(foods =>{
-            var d = dist(blob.pos.x, blob.pos.y, foods.pos.x, foods.pos.y);
-            if(d < blob.r + foods.r)
-                console.log("eat")
+        foods = foods.filter(food =>{
+            var d = dist(blob.pos.x, blob.pos.y, food.pos.x, food.pos.y);
+            if(d < blob.r + food.r){
+                //Food eaten
+                console.log("HAM");
+                
+                blob.eat(food.val);
+                
+                return false;
+            }
+            return true;
         })
     })
 }
