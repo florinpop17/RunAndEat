@@ -51,7 +51,7 @@ function draw() {
         eatFood();
 
         foods.forEach(food => {
-            fill(foodColors[food.val] - 1)
+            fill(foodColors[food.val - 1]);
             ellipse(food.x, food.y, food.r * 2, food.r * 2);
         });
 
