@@ -43,10 +43,10 @@ function User(id, x, y, r, name, speed, col) {
 
 
 setInterval(draw, 33);
-setInterval(addFood, 1000);
+setInterval(addFood, 700);
 
 function addFood(){
-    if(foods.length < 20){
+    if(foods.length < 40){
         foods.push(new Food(id, Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
         id++;
     }

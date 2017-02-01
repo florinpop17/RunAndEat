@@ -1,7 +1,7 @@
 function User(name) {
     this.x = random(0, width);
     this.y = random(0, height);
-    this.r = width / 30;
+    this.r = 20;
     this.speed = 5;
     this.name = name;
     this.col = [random(255), random(255), random(255)];
