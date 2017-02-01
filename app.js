@@ -82,7 +82,7 @@ io.sockets.on('connection', function(socket){
     });
     
     socket.on('eat food', function(foodId){
-        console.log(foodId);
+//        console.log(foodId);
         foods = foods.filter(food => foodId !== food.id);
     });
     
