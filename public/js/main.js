@@ -86,7 +86,7 @@ function eatFood() {
     foods.forEach(food => {
         var d = dist(user.x, user.y, food.x, food.y);
         if(d < user.r + food.r){
-            user.speed += food.val / 20;
+            user.speed += food.val / 100;
             food.x = 1000;
             socket.emit('eat food', food.id);
         }
