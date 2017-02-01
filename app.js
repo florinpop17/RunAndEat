@@ -6,6 +6,7 @@ const io = require('socket.io').listen(server);
 
 const PORT = process.env.PORT || 3000;
 
+let id = 1;
 let users = [];
 let foods = [];
 let connections = [];
@@ -22,7 +23,8 @@ server.listen(PORT, function() {
     console.log('Server running on port',PORT);
 });
 
-function Food(x, y, r, val){
+function Food(id, x, y, r, val){
+    this.id = id;
     this.x = x;
     this.y = y;
     this.r = r;
@@ -40,19 +42,18 @@ function User(id, x, y, r, name, speed, col) {
 }
 
 
-setInterval(draw, 3000);
-setInterval(addFood, 800);
+setInterval(draw, 33);
+setInterval(addFood, 1000);
 
 function addFood(){
-    if(foods.length < 50)
-        foods.push(new Food(Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
+    if(foods.length < 20){
+        foods.push(new Food(id, Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
+        id++;
+    }
 }
 
 function draw(){
-//    console.log(users, foods);
-    console.log(users);
-    io.sockets.emit('tick', users);
-//    console.log(users);
+    io.sockets.emit('tick', {users, foods});
 }
 
 io.sockets.on('connection', function(socket){
@@ -62,7 +63,6 @@ io.sockets.on('connection', function(socket){
     socket.on('start', function(data){
         var user = new User(socket.id, data.x, data.y, data.r, data.name, data.speed, data.col);
         users.push(user);
-        console.log(users);
     });
     
     socket.on('update', function(data){
@@ -81,9 +81,11 @@ io.sockets.on('connection', function(socket){
         newUser.col = data.col;
     });
     
-    socket.on('eaten', function(data){
-        foods = data; 
+    socket.on('eat food', function(foodId){
+        console.log(foodId);
+        foods = foods.filter(food => foodId !== food.id);
     });
+    
     
     //Disconnect
     socket.on('disconnect', function(data){

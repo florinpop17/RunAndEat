@@ -37,13 +37,10 @@ function setup() {
         speed: user.speed,
         col: user.col
     }
-    
-    console.log(data);
 
     socket.emit('start', data);
 
     socket.on('tick', function(data) {
-        console.log(data);
         users = data.users;
         foods = data.foods;
     });
@@ -62,7 +59,6 @@ function draw() {
             var id = users[i].id;
 
             if (id !== socket.id) {
-//                console.log(users[i].col);
                 fill(users[i].col);
                 ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
 
@@ -86,17 +82,13 @@ function draw() {
 }
 
 function eatFood() {
-    foods = foods.filter(food =>{
+    
+    foods.forEach(food => {
         var d = dist(user.x, user.y, food.x, food.y);
         if(d < user.r + food.r){
-            
-            //Food eaten                
             user.speed += food.val / 10;
-            
-            return false;
+            socket.emit('eat food', food.id);
         }
-        return true;
-    });
+    })
     
-    socket.emit('eaten', foods);
 }
