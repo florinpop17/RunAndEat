@@ -37,10 +37,13 @@ function setup() {
         speed: user.speed,
         col: user.col
     }
+    
+    console.log(data);
 
     socket.emit('start', data);
 
     socket.on('tick', function(data) {
+        console.log(data);
         users = data.users;
         foods = data.foods;
     });
@@ -55,11 +58,11 @@ function draw() {
             ellipse(food.x, food.y, food.r * 2, food.r * 2);
         });
 
-        for (var i = users.length - 1; i >= 0; i--) {
+        for (var i = 0; i < users.length; i++) {
             var id = users[i].id;
 
             if (id !== socket.id) {
-                console.log(users[i].col);
+//                console.log(users[i].col);
                 fill(users[i].col);
                 ellipse(users[i].x, users[i].y, users[i].r * 2, users[i].r * 2);
 
@@ -70,7 +73,7 @@ function draw() {
         }
         user.show();
 
-        var upUser = {
+        var data = {
             x: user.x,
             y: user.y,
             r: user.r,

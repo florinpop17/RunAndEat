@@ -40,15 +40,18 @@ function User(id, x, y, r, name, speed, col) {
 }
 
 
-setInterval(draw, 10);
+setInterval(draw, 3000);
 setInterval(addFood, 800);
 
 function addFood(){
-    foods.push(new Food(Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
+    if(foods.length < 50)
+        foods.push(new Food(Math.random() * 800, Math.random() * 800, 8, Math.floor(Math.random() * 4) + 1));
 }
 
 function draw(){
-    io.sockets.emit('tick', {users, foods});
+//    console.log(users, foods);
+    console.log(users);
+    io.sockets.emit('tick', users);
 //    console.log(users);
 }
 
@@ -59,6 +62,7 @@ io.sockets.on('connection', function(socket){
     socket.on('start', function(data){
         var user = new User(socket.id, data.x, data.y, data.r, data.name, data.speed, data.col);
         users.push(user);
+        console.log(users);
     });
     
     socket.on('update', function(data){
